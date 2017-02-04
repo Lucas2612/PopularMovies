@@ -19,12 +19,12 @@ import static android.content.ContentValues.TAG;
 
 public class NetworkUtils {
 
-    public final static String URL_MOVIE_BASE = "http://api.themoviedb.org/3/movie/";
-    public final static String API_KEY = "xxxxxxxxx";
+    public final static String URL_MOVIE_BASE = "http://api.themoviedb.org/3/discover/movie/";
+    public final static String API_KEY = SettingUtils.api_key;
 
     public static URL buildUrl(String order) {
         Uri builtUri = Uri.parse(URL_MOVIE_BASE).buildUpon()
-                .appendPath(order)
+                .appendQueryParameter("sort_by", order)
                 .appendQueryParameter("api_key", API_KEY)
                 .build();
         URL url = null;
