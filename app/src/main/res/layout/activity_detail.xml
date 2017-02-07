@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:text="Movie Title: "
+            android:text="@string/movie_title"
             android:textStyle="bold"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="Release Date: "
+            android:text="@string/release_date"
             android:textStyle="bold"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
@@ -54,7 +54,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_movieReleaseDate"
-
             />
     </LinearLayout>
     <LinearLayout
@@ -62,7 +61,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:text="Vote Average: "
+            android:text="@string/vote_average"
             android:layout_width="100dp"
             android:textStyle="bold"
             android:layout_height="wrap_content" />
@@ -74,12 +73,10 @@
 
             />
     </LinearLayout>
-
-
     <TextView
         android:padding="10dp"
         android:background="@drawable/border"
-        android:text="Plot Synopsis: "
+        android:text="@string/plot_synopsis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_moviePlotSynopsis"

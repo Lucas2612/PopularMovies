@@ -21,5 +21,4 @@
         android:text="@string/error_message"
         android:visibility="invisible"
         />
-
 </FrameLayout>
