@@ -51,7 +51,7 @@ public class JsonUtils {
                     movieJson.getBoolean(JsonMovies.ADULT_BOOLEAN),
                     movieJson.getDouble(JsonMovies.VOTE_AVERAGE_DOUBLE)
                     );
-            Log.v(TAG, movie.toString());
+
             listMovies.add(movie);
         }
 
@@ -73,7 +73,7 @@ public class JsonUtils {
         try {
             date = formatter.parse(dateString);
         } catch (ParseException e) {
-            Log.e("DateFormat", "Exception in parse date" + e.getMessage());
+            Log.v(TAG, "Exception in parse date" + e.getMessage());
         }
         return date;
     }

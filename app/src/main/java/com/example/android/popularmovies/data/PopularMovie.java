@@ -78,6 +78,7 @@ public class PopularMovie implements Parcelable{
         vote_count = in.readInt();
         video = in.readByte() != 0;
         vote_average = in.readDouble();
+        release_date = new Date(in.readLong());
     }
 
     public static final Creator<PopularMovie> CREATOR = new Creator<PopularMovie>() {
@@ -107,7 +108,7 @@ public class PopularMovie implements Parcelable{
     public String getRelease_date_string(){
         String dateString = null;
         if (release_date!=null){
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
             dateString = formatter.format(release_date);
         }
         return dateString;
@@ -141,5 +142,6 @@ public class PopularMovie implements Parcelable{
         parcel.writeInt(vote_count);
         parcel.writeByte((byte) (video ? 1 : 0));
         parcel.writeDouble(vote_average);
+        parcel.writeLong(release_date.getTime());
     }
 }
