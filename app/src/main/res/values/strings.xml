@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">PopularMovies</string>
     <string name="error_message">A error has occurred!</string>
+
+    <string name="popular_order_menu">Popular Order</string>
+    <string name="rated_order_menu">Rated Order</string>
+
+    <string name="popular_order_api">popularity.desc</string>
+    <string name="rated_order_api">vote_count.desc</string>
 </resources>

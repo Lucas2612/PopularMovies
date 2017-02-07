@@ -73,7 +73,7 @@ public class JsonUtils {
         try {
             date = formatter.parse(dateString);
         } catch (ParseException e) {
-            Log.e(TAG, "Exception in parse date" + e.getMessage());
+            Log.e("DateFormat", "Exception in parse date" + e.getMessage());
         }
         return date;
     }

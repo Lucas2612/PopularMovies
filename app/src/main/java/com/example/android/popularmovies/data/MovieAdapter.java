@@ -17,10 +17,8 @@ import java.util.List;
  * Created by lucas on 03/02/2017.
  */
 
-public class MovieAdapter extends ArrayAdapter<PopularMovie> {
+public class MovieAdapter extends ArrayAdapter<PopularMovie>   {
 
-    private static final String BASE_URL = "http://image.tmdb.org/t/p/";
-    private static final String IMG_SIZE = "w342/";
     private static final String LOG_TAG = "MovieAdapter";
 
     public MovieAdapter(Context context, List<PopularMovie> objects) {
@@ -42,7 +40,7 @@ public class MovieAdapter extends ArrayAdapter<PopularMovie> {
         }
 
         ImageView poster = (ImageView) convertView.findViewById(R.id.movie_image);
-        String pathImage = BASE_URL + IMG_SIZE + movie.poster_path;
+        String pathImage = movie.poster_path;
         Log.v(LOG_TAG, pathImage);
         Picasso.with(getContext()).load(pathImage).into(poster);
         //iconView.setImageResource(androidFlavor.image);
@@ -52,4 +50,6 @@ public class MovieAdapter extends ArrayAdapter<PopularMovie> {
 
         return convertView;
     }
+
+
 }
