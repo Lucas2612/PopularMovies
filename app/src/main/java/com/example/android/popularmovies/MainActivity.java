@@ -2,7 +2,6 @@ package com.example.android.popularmovies;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -10,13 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 
-import com.example.android.popularmovies.data.MovieAdapter;
-import com.example.android.popularmovies.data.PopularMovie;
 import com.example.android.popularmovies.utilities.FetchMovieTask;
 
 import java.util.List;
@@ -78,23 +72,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTaskComplete(List result) {
             dialog.dismiss();
-            if (result!=null){
-                final MovieAdapter movieAdapter = new MovieAdapter(getBaseContext(), result);
-                // Get a reference to the ListView, and attach this adapter to it.
-                GridView gridView = (GridView) findViewById(R.id.movies_grid);
-                gridView.setAdapter(movieAdapter);
-                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        PopularMovie popularMovie= (PopularMovie)adapterView.getItemAtPosition(position);
-                        Class destinationClass = DetailActivity.class;
-                        Intent movieDetailIntent = new Intent(getBaseContext(), destinationClass);
-                        movieDetailIntent.putExtra("movieDetail", popularMovie);
-                        startActivity(movieDetailIntent);
-                    }
-                });
-            }
         }
     }
-
 }

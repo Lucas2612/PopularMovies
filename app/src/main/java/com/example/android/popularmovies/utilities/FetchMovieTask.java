@@ -2,9 +2,17 @@ package com.example.android.popularmovies.utilities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.example.android.popularmovies.AsyncAux;
+import com.example.android.popularmovies.DetailActivity;
+import com.example.android.popularmovies.R;
+import com.example.android.popularmovies.data.MovieAdapter;
 import com.example.android.popularmovies.data.PopularMovie;
 
 import java.net.URL;
@@ -52,6 +60,23 @@ public class FetchMovieTask extends AsyncTask<String, Void, List<PopularMovie>> 
     @Override
     protected void onPostExecute(List<PopularMovie> myPojo) {
         super.onPostExecute(myPojo);
+        if (myPojo!=null) {
+            final MovieAdapter movieAdapter = new MovieAdapter(context, myPojo);
+            // Get a reference to the ListView, and attach this adapter to it.
+            AppCompatActivity appCompatActivity = (AppCompatActivity) context;
+            GridView gridView = (GridView) appCompatActivity.findViewById(R.id.movies_grid);
+            gridView.setAdapter(movieAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    PopularMovie popularMovie = (PopularMovie) adapterView.getItemAtPosition(position);
+                    Class destinationClass = DetailActivity.class;
+                    Intent movieDetailIntent = new Intent(context, destinationClass);
+                    movieDetailIntent.putExtra("movieDetail", popularMovie);
+                    context.startActivity(movieDetailIntent);
+                }
+            });
+        }
         listener.onTaskComplete(myPojo);
     }
 }
