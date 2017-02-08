@@ -43,6 +43,12 @@ public class MovieAdapter extends ArrayAdapter<PopularMovie>   {
         String pathImage = movie.poster_path;
         Log.v(LOG_TAG, pathImage);
         Picasso.with(getContext()).load(pathImage).into(poster);
+        Picasso.with(getContext())
+                .load(pathImage)
+                .placeholder(R.drawable.ic_stat_name)
+                .error(R.drawable.ic_stat_alert)
+                .into(poster);
+
         //iconView.setImageResource(androidFlavor.image);
 
         //TextView titleView = (TextView) convertView.findViewById(R.id.movie_text);
@@ -50,6 +56,4 @@ public class MovieAdapter extends ArrayAdapter<PopularMovie>   {
 
         return convertView;
     }
-
-
 }

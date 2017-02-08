@@ -1,8 +1,10 @@
 package com.example.android.popularmovies;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -15,22 +17,20 @@ import android.widget.TextView;
 
 import com.example.android.popularmovies.data.MovieAdapter;
 import com.example.android.popularmovies.data.PopularMovie;
-import com.example.android.popularmovies.utilities.JsonUtils;
-import com.example.android.popularmovies.utilities.NetworkUtils;
+import com.example.android.popularmovies.utilities.FetchMovieTask;
 
-import java.net.URL;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String order = "popularity.desc"; // default;
+    String order = "popular"; // default;
+    ProgressDialog dialog;
 
     private TextView mErrorMessageDisplay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message);
         loadMovieData();
     }
 
@@ -57,52 +57,32 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     private void loadMovieData() {
-        showWeatherDataView();
-        //String location = SunshinePreferences.getPreferredWeatherLocation(this);
-        // TODO check if it is online
-        new FetchMovieTask().execute(order);
-    }
-
-    private void showWeatherDataView() {
-        //mErrorMessageDisplay.setVisibility(View.INVISIBLE);
-        //mRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-    public class FetchMovieTask extends AsyncTask<String, Void, List<PopularMovie>> {
-        private ProgressDialog dialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        if (isOnline()){
             dialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
-            //mLoadingIndicator.setVisibility(View.VISIBLE);
+            new FetchMovieTask(this, new FetchMyDataTaskCompleteListener()).execute(order);
+        }else{
+            // Please revier, how can I add a textview in a gridview?
+            // I want add a error message
+            // Do I have create another adapter?
+            // Thanks
         }
+    }
+
+    public class FetchMyDataTaskCompleteListener implements AsyncAux{
 
         @Override
-        protected List<PopularMovie> doInBackground(String... params) {
-            if (params.length==1){
-                order = params[0];
-            }
-            URL weatherRequestUrl = NetworkUtils.buildUrl(order);
-
-            try {
-                String strMovies = NetworkUtils.getResponseFromHttpUrl(weatherRequestUrl);
-                List<PopularMovie> listMovies = JsonUtils.getJsonValues(strMovies);
-
-                return listMovies;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(List<PopularMovie> popularMovies) {
+        public void onTaskComplete(List result) {
             dialog.dismiss();
-            if (popularMovies!=null){
-                //showWeatherDataView();
-                final MovieAdapter movieAdapter = new MovieAdapter(getBaseContext(), popularMovies);
-
+            if (result!=null){
+                final MovieAdapter movieAdapter = new MovieAdapter(getBaseContext(), result);
                 // Get a reference to the ListView, and attach this adapter to it.
                 GridView gridView = (GridView) findViewById(R.id.movies_grid);
                 gridView.setAdapter(movieAdapter);
@@ -110,18 +90,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                         PopularMovie popularMovie= (PopularMovie)adapterView.getItemAtPosition(position);
-                        //Toast.makeText(MainActivity.this, "" + popularMovie.getOriginal_title(), Toast.LENGTH_SHORT).show();
                         Class destinationClass = DetailActivity.class;
                         Intent movieDetailIntent = new Intent(getBaseContext(), destinationClass);
                         movieDetailIntent.putExtra("movieDetail", popularMovie);
                         startActivity(movieDetailIntent);
                     }
                 });
-            }else{
-                mErrorMessageDisplay.setVisibility(View.VISIBLE);
-                //GridView gridView = (GridView) findViewById(R.id.movies_grid);
-
-                //showErrorMessage();
             }
         }
     }

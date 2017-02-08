@@ -11,13 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.example.android.popularmovies.DetailActivity">
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +23,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:id="@+id/im_moviePoster" />
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,6 +81,11 @@
 
                     />
             </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
             <TextView
                 android:padding="10dp"
                 android:background="@drawable/border"
@@ -90,6 +97,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerVertical="true"
                 />
-        </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
