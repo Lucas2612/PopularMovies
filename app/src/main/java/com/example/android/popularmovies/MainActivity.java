@@ -69,10 +69,7 @@ public class MainActivity extends AppCompatActivity {
             dialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
             new FetchMovieTask(this, new FetchMyDataTaskCompleteListener()).execute(order);
         }else{
-            // Please revier, how can I add a textview in a gridview?
-            // I want add a error message
-            // Do I have create another adapter?
-            // Thanks
+            // show error message
         }
     }
 
