@@ -58,10 +58,10 @@ public class FetchMovieTask extends AsyncTask<String, Void, List<PopularMovie>> 
     }
 
     @Override
-    protected void onPostExecute(List<PopularMovie> myPojo) {
-        super.onPostExecute(myPojo);
-        if (myPojo!=null) {
-            final MovieAdapter movieAdapter = new MovieAdapter(context, myPojo);
+    protected void onPostExecute(List<PopularMovie> result) {
+        super.onPostExecute(result);
+        if (result!=null) {
+            final MovieAdapter movieAdapter = new MovieAdapter(context, result);
             // Get a reference to the ListView, and attach this adapter to it.
             AppCompatActivity appCompatActivity = (AppCompatActivity) context;
             GridView gridView = (GridView) appCompatActivity.findViewById(R.id.movies_grid);
@@ -77,6 +77,6 @@ public class FetchMovieTask extends AsyncTask<String, Void, List<PopularMovie>> 
                 }
             });
         }
-        listener.onTaskComplete(myPojo);
+        listener.onTaskComplete(result);
     }
 }

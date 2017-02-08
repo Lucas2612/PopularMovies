@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- General Strings -->
     <string name="app_name">PopularMovies</string>
-    <string name="error_message">A error has occurred!</string>
+    <string name="error_message">This app does not work offline!</string>
 
     <!-- Order Strings -->
     <string name="popular_order_menu">Popular Order</string>

@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.android.popularmovies.data.TextViewAdapter;
 import com.example.android.popularmovies.utilities.FetchMovieTask;
 
 import java.util.List;
@@ -63,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
             dialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
             new FetchMovieTask(this, new FetchMyDataTaskCompleteListener()).execute(order);
         }else{
-            // show error message
+            GridView gridview = (GridView) findViewById(R.id.movies_grid);
+            gridview.setAdapter(new TextViewAdapter(this));
         }
     }
 
